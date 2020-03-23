@@ -16,7 +16,7 @@ import {
   SessionModule,
   SystemModule,
   UserModule,
-  MockModule,
+  MockModule, SolutionModule,
 } from './modules'
 import './permissions'
 
@@ -45,6 +45,7 @@ import './permissions'
     forwardRef(() => MailerModule),
     forwardRef(() => SessionModule),
     forwardRef(() => SystemModule),
+    forwardRef(() => SolutionModule),
     forwardRef(() => UserModule),
     forwardRef(() => MockModule),
   ],
