@@ -1,0 +1,64 @@
+scalar Date
+
+type Mutation {
+  Solution_createOne(createInput: SolutionCreateInput!): Solution!
+  Solution_updateOne(updateInput: SolutionUpdateInput!): Solution!
+  Solution_deleteOne(deleteInput: SolutionDeleteInput!): Boolean!
+}
+
+type Query {
+  Solution_findOne(findOneInput: SolutionFindOneInput!): Solution
+  Solution_findMany(findManyInput: SolutionFindManyInput!): [Solution]!
+}
+
+type Solution {
+  uuid: String!
+  name: String!
+  projectAssignment: [ProjectAssignment]
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+input SolutionCreateInput {
+  name: String!
+}
+
+input SolutionUpdateInput {
+  uuid: String!
+  name: String
+}
+
+input SolutionFindOneInput {
+  where: SolutionSearchFieldsInput
+}
+
+input SolutionFindManyInput {
+  skip: Int
+  take: Int
+  order: SolutionOrderByInput
+  where: SolutionSearchFieldsInput
+}
+
+input SolutionOrderByInput {
+  name: OrderByEnum
+}
+
+input SolutionSearchFieldsInput {
+  uuid: String
+  name: String
+}
+
+input SolutionDeleteInput {
+  uuid: String!
+}
+
+extend enum PermissionNames {
+  SOLUTION_CREATE_ANY
+  SOLUTION_READ_ANY
+  SOLUTION_UPDATE_ANY
+  SOLUTION_DELETE_ANY
+  SOLUTION_CREATE_OWN
+  SOLUTION_READ_OWN
+  SOLUTION_UPDATE_OWN
+  SOLUTION_DELETE_OWN
+}

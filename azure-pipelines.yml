@@ -1,0 +1,32 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - develop
+      - staging
+      - master
+
+stages:
+  - stage: TestBuild
+    displayName: Test & Build stage
+    jobs:
+      - job: TestBuild
+        displayName: Build
+        pool:
+          vmImage: 'ubuntu-latest'
+        timeoutInMinutes: 15
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '10.16.x'
+            displayName: 'Install Node.js'
+          - script: |
+              yarn install
+              cp .env.example .env
+            displayName: 'Install dependencies'
+            env:
+              NPM_TOKEN: $(npmToken)
+          - script: yarn run test
+            displayName: 'Run tests'
+            env:
+              NPM_TOKEN: $(npmToken)

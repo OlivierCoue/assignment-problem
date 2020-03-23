@@ -1,0 +1,27 @@
+fragment FRAGMENT_Solution_fields on Solution {
+  uuid
+  name
+}
+
+fragment FRAGMENT_Solution_allFields on Solution {
+  uuid
+  name
+  projectAssignment {
+    uuid
+    projectName
+    studentOneEmail
+    studentTwoEmail
+  }
+}
+
+query QUERY_Solution_findMany($input: SolutionFindManyInput!) {
+  Solution_findMany(findManyInput: $input) {
+    ...FRAGMENT_Solution_fields
+  }
+}
+
+query QUERY_Solution_findOne($input: SolutionFindOneInput!) {
+  Solution_findOne(findOneInput: $input) {
+    ...FRAGMENT_Solution_allFields
+  }
+}

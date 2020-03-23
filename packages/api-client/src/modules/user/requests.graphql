@@ -1,0 +1,23 @@
+fragment FRAGMENT_User_fields on User {
+  uuid
+  firstName
+  lastName
+  email
+  role {
+    name
+  }
+  createdAt
+  updatedAt
+}
+
+query QUERY_User_findMany($input: UserFindManyInput!) {
+  User_findMany(findManyInput: $input) {
+    ...FRAGMENT_User_fields
+  }
+}
+
+query QUERY_User_getCurrent {
+  User_getCurrent {
+    ...FRAGMENT_User_fields
+  }
+}
