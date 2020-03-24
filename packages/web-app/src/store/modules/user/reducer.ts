@@ -1,4 +1,4 @@
-import { User } from '@stock-management/api-client/lib'
+import { User } from '@assignment-problem/api-client/lib'
 import { createReducer } from 'redux-starter-kit'
 
 import { UserActions } from '.'

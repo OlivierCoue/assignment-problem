@@ -35,7 +35,7 @@ class MenuFile extends React.Component<TProps, IState> {
   }
 
   onUserListClicked = () => {
-    window.document.location.href = generateRoutePath(RoutePath.USER_LIST, {})
+    window.document.location.href = generateRoutePath(RoutePath.HOME, {})
   }
 
   render() {

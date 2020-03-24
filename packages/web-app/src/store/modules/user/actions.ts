@@ -1,4 +1,4 @@
-import { User } from '@stock-management/api-client/lib'
+import { User } from '@assignment-problem/api-client/lib'
 import { createAction } from 'redux-starter-kit'
 
 export const userReconnectRequest = createAction<undefined>('user/RECONNECT_REQUEST')

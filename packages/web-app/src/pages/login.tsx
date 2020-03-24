@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Button, TextField } from '@material-ui/core'
-import { AuthService } from '@stock-management/api-client/lib'
+import { AuthService } from '@assignment-problem/api-client/lib'
 import { sleep } from '@mysg/helper/lib'
 import { RouteComponentProps } from 'react-router-dom'
 

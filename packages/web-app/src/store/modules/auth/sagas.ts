@@ -1,5 +1,5 @@
 import { all, call, cancelled, put, takeLatest } from 'redux-saga/effects'
-import { AuthService } from '@stock-management/api-client/lib'
+import { AuthService } from '@assignment-problem/api-client/lib'
 
 import { UserActions } from '../user'
 import { NotificationActions } from '../notification'

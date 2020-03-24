@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { BrowserRouter, Redirect, Route, RouteProps, Switch } from 'react-router-dom'
 import { lazyWithPreload as lazyWP } from '@mysg/react-common'
-import { PermissionNames, User } from '@stock-management/api-client/lib'
+import { PermissionNames, User } from '@assignment-problem/api-client/lib'
 import { connect } from 'react-redux'
 
 import { rootAction, TRootAction, TRootState } from '../store'

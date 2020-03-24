@@ -8,10 +8,13 @@ import {
   SolutionFindManyInput,
   SolutionFindOneInput,
   Fragment_Solution_AllFieldsFragment,
+  SolutionComputeInput,
+  Mutation_Solution_ComputeMutation,
+  Mutation_Solution_ComputeMutationVariables,
 } from '../../internal'
 import { CustomClientError } from '../../util/error'
 
-import { QUERY_Solution_findMany, QUERY_Solution_findOne } from './requests.graphql'
+import { QUERY_Solution_findMany, QUERY_Solution_findOne, MUTATION_Solution_compute } from './requests.graphql'
 
 export class SolutionService {
   static async findMany(input: SolutionFindManyInput): Promise<Fragment_Solution_FieldsFragment[]> {
@@ -47,5 +50,26 @@ export class SolutionService {
     if (store === undefined) throw new Error('[Solution][findOne] failed')
 
     return store
+  }
+
+  static async compute(input: SolutionComputeInput): Promise<Fragment_Solution_AllFieldsFragment> {
+    const result = await GraphQLClient.mutate<
+      Mutation_Solution_ComputeMutation,
+      Mutation_Solution_ComputeMutationVariables
+    >({
+      mutation: MUTATION_Solution_compute,
+      variables: { input },
+    })
+
+    if (result.errors) throw new CustomClientError(result.errors)
+
+    const {
+      // @ts-ignore
+      data: { Solution_compute: solution },
+    } = result
+
+    if (solution === undefined) throw new Error('[Solution][findOne] failed')
+
+    return solution
   }
 }

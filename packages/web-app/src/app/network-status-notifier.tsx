@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { GraphQLClient } from '@stock-management/api-client/lib'
+import { GraphQLClient } from '@assignment-problem/api-client/lib'
 
 class NetworkStatusNotifier extends React.PureComponent {
   static renderNotifier(state: any) {

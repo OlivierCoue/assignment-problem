@@ -3,6 +3,7 @@ import React, { FormEvent } from 'react'
 import { connect } from 'react-redux'
 import { Button, TextField } from '@material-ui/core'
 import parse from 'csv-parse/lib/sync'
+import { SolutionService } from '@assignment-problem/api-client/lib'
 
 import Layout from '../layouts/default'
 import { rootAction, TRootState } from '../store'
@@ -13,6 +14,7 @@ type TProps = ReturnType<typeof mapStateToProps> & typeof rootAction & IProps
 
 interface IState {
   rawData: string
+  csvData: ICsvData[]
   projects: string[]
   studentEmails: string[]
   teacherEmails: string[]
@@ -22,7 +24,7 @@ interface IState {
 interface ICsvData {
   studentEmail: string
   project: string
-  score: string
+  score: number
   teacherEmail: string
 }
 
@@ -30,14 +32,24 @@ export class Home extends React.Component<TProps, IState> {
   constructor(props: TProps) {
     super(props)
     // eslint-disable-next-line react/state-in-constructor
-    this.state = { rawData: '', projects: [], studentEmails: [], teacherEmails: [], dataLoaded: false }
+    this.state = { rawData: '', projects: [], studentEmails: [], teacherEmails: [], dataLoaded: false, csvData: [] }
   }
 
   onLoadDataSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { rawData } = this.state
 
-    const csvDatas = parse(rawData, { columns: true, skip_empty_lines: true, rtrim: true, ltrim: true }) as ICsvData[]
+    const csvDatas: ICsvData[] = parse(rawData, {
+      columns: true,
+      skip_empty_lines: true,
+      rtrim: true,
+      ltrim: true,
+    }).map((rawCsvData: any) => ({
+      studentEmail: rawCsvData.studentEmail,
+      project: rawCsvData.project,
+      score: parseInt(rawCsvData.project),
+      teacherEmail: rawCsvData.teacherEmail,
+    }))
     const projects = csvDatas.map((el) => el.project).filter((project, index, self) => self.indexOf(project) === index)
 
     const teacherEmails = csvDatas
@@ -50,7 +62,7 @@ export class Home extends React.Component<TProps, IState> {
     })
     studentEmails = studentEmails.filter((studentEmail, index, self) => self.indexOf(studentEmail) === index)
 
-    this.setState({ rawData: '', projects, teacherEmails, studentEmails, dataLoaded: true })
+    this.setState({ rawData: '', csvData: [], projects, teacherEmails, studentEmails, dataLoaded: true })
   }
 
   onRawDataChange = ({ currentTarget }: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,11 +72,18 @@ export class Home extends React.Component<TProps, IState> {
   onLoadNewData = () => {
     this.setState({
       rawData: '',
+      csvData: [],
       dataLoaded: false,
       teacherEmails: [],
       studentEmails: [],
       projects: [],
     })
+  }
+
+  onComputeSolution = async () => {
+    const { csvData } = this.state
+    const solution = await SolutionService.compute({ csvData })
+    console.log(solution)
   }
 
   render() {
@@ -107,10 +126,10 @@ export class Home extends React.Component<TProps, IState> {
                 ))}
               </ul>
               <div>
-                <Button color="primary" variant="outlined" onClick={this.onLoadNewData}>
+                <Button color="primary" onClick={this.onLoadNewData} variant="outlined">
                   Charger des nouvelles données
                 </Button>
-                <Button color="primary" variant="outlined">
+                <Button color="primary" onClick={this.onComputeSolution} variant="outlined">
                   Résoudre
                 </Button>
               </div>

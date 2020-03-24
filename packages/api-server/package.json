@@ -1,5 +1,5 @@
 {
-  "name": "@stock-management/api-server",
+  "name": "@assignment-problem/api-server",
   "version": "0.0.0",
   "scripts": {
     "env:cmd": "env-cmd -f ../../.env",

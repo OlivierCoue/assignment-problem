@@ -12,13 +12,13 @@ type Query {
 }
 
 type ProjectAssignment {
-  uuid: String!
+  uuid: String
   solution: Solution
   projectName: String
   studentOneEmail: String
   studentTwoEmail: String
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: Date
+  updatedAt: Date
 }
 
 input ProjectAssignmentCreateInput {
