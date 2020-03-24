@@ -43,7 +43,8 @@
     "clean:bundle": "shx rm -rf dist",
     "clean:build": "shx rm -rf lib",
     "clean:dumps": "shx rm -rf dumps/* && shx touch dumps/.gitkeep",
-    "clean:local": "shx rm -rf local/docker/* && shx touch local/docker/.gitkeep && shx rm -rf local/tmp/* && shx touch local/tmp/.gitkeep && shx rm -rf local/uploads/* && shx touch local/uploads/.gitkeep"
+    "clean:local": "shx rm -rf local/docker/* && shx touch local/docker/.gitkeep && shx rm -rf local/tmp/* && shx touch local/tmp/.gitkeep && shx rm -rf local/uploads/* && shx touch local/uploads/.gitkeep",
+    "doc:gen": "shx rm -rf doc && graphdoc -e http://localhost:3000/graphql -o ./doc"
   },
   "dependencies": {
     "@mysg/helper": "0.8.0",
