@@ -57,6 +57,16 @@ export class Home extends React.Component<TProps, IState> {
     this.setState({ rawData: currentTarget.value })
   }
 
+  onLoadNewData = () => {
+    this.setState({
+      rawData: '',
+      dataLoaded: false,
+      teacherEmails: [],
+      studentEmails: [],
+      projects: [],
+    })
+  }
+
   render() {
     // generateRoutePath(RoutePath.STORE_DETAILS, { storeUuid: store.uuid })
     const { rawData, dataLoaded, projects, studentEmails, teacherEmails } = this.state
@@ -76,12 +86,14 @@ export class Home extends React.Component<TProps, IState> {
                 rowsMax="4"
                 value={rawData}
               />
-              <Button type="submit">Charger les données</Button>
+              <Button color="primary" type="submit" variant="outlined">
+                Charger les données
+              </Button>
             </form>
           )}
           {dataLoaded && (
             <div>
-              <h5>Aperçu</h5>
+              <h5>Aperçu :</h5>
               <div>Nombre de projets chargés: {projects.length}</div>
               <div>Nombre de d'étudiants chargés: {studentEmails.length}</div>
               <div>Nombre de d'enseignants chargés: {teacherEmails.length}</div>
@@ -94,6 +106,14 @@ export class Home extends React.Component<TProps, IState> {
                   </li>
                 ))}
               </ul>
+              <div>
+                <Button color="primary" variant="outlined" onClick={this.onLoadNewData}>
+                  Charger des nouvelles données
+                </Button>
+                <Button color="primary" variant="outlined">
+                  Résoudre
+                </Button>
+              </div>
             </div>
           )}
         </div>
