@@ -12,7 +12,6 @@ import { AuthGuard } from './modules/authorization/guard'
 import {
   AuthModule,
   AuthorizationModule,
-  MailerModule,
   SessionModule,
   SystemModule,
   UserModule,
@@ -42,7 +41,6 @@ import './permissions'
     forwardRef(() => AccessControlModule.forRoles(permissionsBuilder)),
     forwardRef(() => AuthModule),
     forwardRef(() => AuthorizationModule),
-    forwardRef(() => MailerModule),
     forwardRef(() => SessionModule),
     forwardRef(() => SystemModule),
     forwardRef(() => SolutionModule),

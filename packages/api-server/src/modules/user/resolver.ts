@@ -231,8 +231,10 @@ export class UserResolver {
   }
 
   @Mutation()
-  sendPasswordResetToken(@Args('email') email: string): Promise<boolean> {
-    return this.userService.sendPasswordResetToken(email)
+  async sendPasswordResetToken(@Args('email') email: string): Promise<boolean> {
+    await this.userService.sendPasswordResetToken(email)
+
+    return true
   }
 
   @Mutation()
@@ -243,13 +245,17 @@ export class UserResolver {
   }
 
   @Mutation()
-  sendVerifyEmailToken(@Args('uuid') uuid: string): Promise<boolean> {
-    return this.userService.sendVerifyEmailToken(uuid)
+  async sendVerifyEmailToken(@Args('uuid') uuid: string): Promise<boolean> {
+    await this.userService.sendVerifyEmailToken(uuid)
+
+    return true
   }
 
   @Mutation()
-  sendActivateAccountToken(@Args('uuid') uuid: string): Promise<boolean> {
-    return this.userService.sendActivateAccountToken(uuid)
+  async sendActivateAccountToken(@Args('uuid') uuid: string): Promise<boolean> {
+    await this.userService.sendActivateAccountToken(uuid)
+
+    return true
   }
 
   @Mutation()

@@ -11,7 +11,6 @@ import {
   UserVerifyEmailInput,
 } from '../../graphql/schema'
 import { decodeJWT, generateJWT } from '../../common/util/crypto'
-import { MailerService } from '../mailer/service'
 import { CustomException } from '../../exceptions/custom-exception/exception'
 import { UserEntity } from '../../entities'
 import { ITypeOrmService } from '../../common/interfaces/typeorm-service'
@@ -29,7 +28,6 @@ import { IUserCreateInput, IUserFindManyByPermissionInput } from './types'
 export class UserService implements ITypeOrmService<UserEntity> {
   constructor(
     @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
-    @Inject(forwardRef(() => MailerService)) private readonly mailerService: MailerService,
     @Inject(forwardRef(() => RoleService)) private readonly roleService: RoleService
   ) {}
 
@@ -137,7 +135,7 @@ export class UserService implements ITypeOrmService<UserEntity> {
     return true
   }
 
-  async sendVerifyEmailToken(uuid: string): Promise<boolean> {
+  async sendVerifyEmailToken(uuid: string): Promise<string> {
     const userRecord = await this.findOneOrFail({ where: { uuid }, relations: [] })
 
     if (!userRecord.isVerifyEmailTokenValid()) {
@@ -148,9 +146,7 @@ export class UserService implements ITypeOrmService<UserEntity> {
     const { email, verifyEmailToken } = userRecord
     const jwtToken = await generateJWT({ email, verifyEmailToken })
 
-    await this.mailerService.sendTemplateMail({ key: 'verify-email', data: { jwtToken } }, { to: email })
-
-    return true
+    return jwtToken
   }
 
   async verifyEmail(input: UserVerifyEmailInput): Promise<boolean> {
@@ -170,7 +166,7 @@ export class UserService implements ITypeOrmService<UserEntity> {
     return true
   }
 
-  async sendActivateAccountToken(uuid: string, customQueryRunner?: QueryRunner): Promise<boolean> {
+  async sendActivateAccountToken(uuid: string, customQueryRunner?: QueryRunner): Promise<string> {
     const userRepository = customQueryRunner ? customQueryRunner.manager.getRepository(UserEntity) : this.userRepository
 
     const userRecord = await this.findOneOrFail({ where: { uuid }, relations: [] }, customQueryRunner)
@@ -180,11 +176,10 @@ export class UserService implements ITypeOrmService<UserEntity> {
       await userRepository.save(userRecord)
     }
 
-    const { email, activateAccountToken, firstName } = userRecord
+    const { email, activateAccountToken } = userRecord
     const jwtToken = await generateJWT({ email, activateAccountToken })
-    await this.mailerService.sendTemplateMail({ key: 'user-created', data: { jwtToken, firstName } }, { to: email })
 
-    return true
+    return jwtToken
   }
 
   async getUserFromActivationToken(token: string): Promise<UserEntity> {
@@ -223,7 +218,7 @@ export class UserService implements ITypeOrmService<UserEntity> {
     return email
   }
 
-  async sendPasswordResetToken(email: string): Promise<boolean> {
+  async sendPasswordResetToken(email: string): Promise<string> {
     const userRecord = await this.findOneOrFail({ where: { email }, relations: [] })
 
     if (!userRecord.isPasswordResetTokenValid()) {
@@ -233,9 +228,8 @@ export class UserService implements ITypeOrmService<UserEntity> {
 
     const { passwordResetToken } = userRecord
     const jwtToken = await generateJWT({ email, passwordResetToken })
-    await this.mailerService.sendTemplateMail({ key: 'reset-password', data: { jwtToken } }, { to: email })
 
-    return true
+    return jwtToken
   }
 
   async setPasswordFromPasswordResetToken(passwordResetInput: UserPasswordResetInput): Promise<boolean> {

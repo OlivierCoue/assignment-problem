@@ -10,7 +10,6 @@ import { GraphQLOptions } from '../../src/graphql/options'
 import { permissionsBuilder } from '../../src/modules/authorization/permission-builder'
 import { AuthModule } from '../../src/modules/auth/module'
 import { AuthorizationModule } from '../../src/modules/authorization/module'
-import { MailerModule } from '../../src/modules/mailer/module'
 import { SessionModule } from '../../src/modules/session/module'
 import { SystemModule } from '../../src/modules/system/module'
 import { UserModule } from '../../src/modules/user/module'
@@ -47,7 +46,6 @@ describe('Tests', () => {
         forwardRef(() => AccessControlModule.forRoles(permissionsBuilder)),
         forwardRef(() => AuthModule),
         forwardRef(() => AuthorizationModule),
-        forwardRef(() => MailerModule),
         forwardRef(() => SessionModule),
         forwardRef(() => SystemModule),
         forwardRef(() => UserModule),

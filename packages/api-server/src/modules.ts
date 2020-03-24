@@ -1,6 +1,5 @@
 export * from './modules/auth/module'
 export * from './modules/authorization/module'
-export * from './modules/mailer/module'
 export * from './modules/session/module'
 export * from './modules/system/module'
 export * from './modules/user/module'
