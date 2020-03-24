@@ -135,10 +135,10 @@ export class Home extends React.Component<TProps, IState> {
           )}
           {dataLoaded && !solutionComputed && (
             <div>
-              <h5>Aperçu :</h5>
-              <div>Nombre de projets chargés: {projects.length}</div>
-              <div>Nombre de d'étudiants chargés: {studentEmails.length}</div>
-              <div>Nombre de d'enseignants chargés: {teacherEmails.length}</div>
+              <h5>Aperçu des données chargées :</h5>
+              <div>Nombre de projets : {projects.length}</div>
+              <div>Nombre de d'étudiants : {studentEmails.length}</div>
+              <div>Nombre de d'enseignants : {teacherEmails.length}</div>
               <h5>Définir le nombre maximum de projet que chaque enseignant peut encadrer :</h5>
               <ul>
                 {teacherEmails.map((teacherEmail) => (

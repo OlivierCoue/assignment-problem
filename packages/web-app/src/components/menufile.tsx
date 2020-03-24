@@ -13,19 +13,21 @@ type TProps = ReturnType<typeof mapStateToProps> & typeof rootAction & IProps
 
 interface IState {
   openMenu: Boolean | false
+  anchor: any
 }
 
 class MenuFile extends React.Component<TProps, IState> {
   constructor(props: TProps) {
     super(props)
     // eslint-disable-next-line react/state-in-constructor
-    this.state = { openMenu: false }
+    this.state = { openMenu: false, anchor: null }
   }
 
-  toggleMenu = () => {
+  toggleMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { openMenu } = this.state
     this.setState({
       openMenu: !openMenu,
+      anchor: event.currentTarget,
     })
   }
 
@@ -39,7 +41,7 @@ class MenuFile extends React.Component<TProps, IState> {
   }
 
   render() {
-    const { openMenu } = this.state
+    const { openMenu, anchor } = this.state
 
     return (
       <div>
@@ -48,14 +50,14 @@ class MenuFile extends React.Component<TProps, IState> {
         </Button>
         <Menu
           keepMounted
+          anchorEl={anchor}
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          getContentAnchorEl={null}
           id="simple-menu"
           onClose={this.toggleMenu}
           open={Boolean(openMenu)}
         >
           <div>
-            <MenuItem onClick={this.onUserListClicked}>Liste des utilisateurs</MenuItem>
+            <MenuItem onClick={this.onUserListClicked}>Solutions enregistrées</MenuItem>
             <MenuItem onClick={this.onLogoutClicked}>Se déconnecter</MenuItem>
           </div>
         </Menu>

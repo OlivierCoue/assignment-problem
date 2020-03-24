@@ -21,7 +21,7 @@ class Header extends React.Component<TProps> {
           <Toolbar>
             <HeaderContainer>
               <div>
-                <PageTitle href="/">Problème d'affectation PEIP</PageTitle>
+                <PageTitle href="/">Affectation des projets PEIP</PageTitle>
               </div>
               <NameMenuContainer>
                 {currentUser && <MyParaName>{`${currentUser.firstName} ${currentUser.lastName}`}</MyParaName>}
