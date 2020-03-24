@@ -3,10 +3,12 @@ import React, { FormEvent } from 'react'
 import { connect } from 'react-redux'
 import { Button, TextField } from '@material-ui/core'
 import parse from 'csv-parse/lib/sync'
-import { SolutionService } from '@assignment-problem/api-client/lib'
+import { Fragment_Solution_AllFieldsFragment, SolutionService } from '@assignment-problem/api-client/lib'
 
 import Layout from '../layouts/default'
 import { rootAction, TRootState } from '../store'
+
+import SolutionDetails from './solution-details'
 
 interface IProps {}
 
@@ -19,6 +21,8 @@ interface IState {
   studentEmails: string[]
   teacherEmails: string[]
   dataLoaded: boolean
+  solutionComputed: boolean
+  solution: Fragment_Solution_AllFieldsFragment | null
 }
 
 interface ICsvData {
@@ -32,7 +36,16 @@ export class Home extends React.Component<TProps, IState> {
   constructor(props: TProps) {
     super(props)
     // eslint-disable-next-line react/state-in-constructor
-    this.state = { rawData: '', projects: [], studentEmails: [], teacherEmails: [], dataLoaded: false, csvData: [] }
+    this.state = {
+      rawData: '',
+      projects: [],
+      studentEmails: [],
+      teacherEmails: [],
+      dataLoaded: false,
+      csvData: [],
+      solutionComputed: false,
+      solution: null,
+    }
   }
 
   onLoadDataSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -74,9 +87,18 @@ export class Home extends React.Component<TProps, IState> {
       rawData: '',
       csvData: [],
       dataLoaded: false,
+      solutionComputed: false,
+      solution: null,
       teacherEmails: [],
       studentEmails: [],
       projects: [],
+    })
+  }
+
+  onUpdateParams = () => {
+    this.setState({
+      solutionComputed: false,
+      solution: null,
     })
   }
 
@@ -84,11 +106,12 @@ export class Home extends React.Component<TProps, IState> {
     const { csvData } = this.state
     const solution = await SolutionService.compute({ csvData })
     console.log(solution)
+    this.setState({ solutionComputed: true, solution })
   }
 
   render() {
     // generateRoutePath(RoutePath.STORE_DETAILS, { storeUuid: store.uuid })
-    const { rawData, dataLoaded, projects, studentEmails, teacherEmails } = this.state
+    const { rawData, dataLoaded, projects, studentEmails, teacherEmails, solutionComputed, solution } = this.state
 
     return (
       <Layout>
@@ -110,7 +133,7 @@ export class Home extends React.Component<TProps, IState> {
               </Button>
             </form>
           )}
-          {dataLoaded && (
+          {dataLoaded && !solutionComputed && (
             <div>
               <h5>Aperçu :</h5>
               <div>Nombre de projets chargés: {projects.length}</div>
@@ -131,6 +154,23 @@ export class Home extends React.Component<TProps, IState> {
                 </Button>
                 <Button color="primary" onClick={this.onComputeSolution} variant="outlined">
                   Résoudre
+                </Button>
+              </div>
+            </div>
+          )}
+          {solutionComputed && solution && (
+            <div>
+              <h5>Solution :</h5>
+              <SolutionDetails solution={solution} />
+              <div>
+                <Button color="primary" onClick={this.onLoadNewData} variant="outlined">
+                  Charger des nouvelles données
+                </Button>
+                <Button color="primary" onClick={this.onUpdateParams} variant="outlined">
+                  Modifier les paramètres
+                </Button>
+                <Button color="primary" onClick={this.onLoadNewData} variant="outlined">
+                  Sauvegarder la solution
                 </Button>
               </div>
             </div>
