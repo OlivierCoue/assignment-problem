@@ -5,7 +5,7 @@ import { UseRoles } from 'nest-access-control'
 import { forwardRef, Inject } from '@nestjs/common'
 
 import {
-  Solution,
+  Solution, SolutionComputeInput,
   SolutionCreateInput,
   SolutionDeleteInput,
   SolutionFindManyInput,
@@ -17,12 +17,28 @@ import { AuthorizationResources } from '../authorization/permission-builder'
 
 import { SolutionService } from './service'
 
-const commonRelationsIncluded = ['usedInStocks']
+const commonRelationsIncluded = ['projectAssignments']
 
 @Resolver('Solution')
 @ResolverPrefix('Solution_')
 export class SolutionResolver {
   constructor(@Inject(forwardRef(() => SolutionService)) private readonly solutionService: SolutionService) {}
+
+  /*
+  @UseRoles({
+    resource: AuthorizationResources.SOLUTION,
+    action: 'create',
+    possession: 'any',
+  })
+  */
+  @Mutation()
+  compute(
+    @Args('computeInput') computeInput: SolutionComputeInput,
+    @GraphQLRelations({ entityName: 'SolutionEntity', include: commonRelationsIncluded }) relations: string[],
+    @Context() context: IGraphQLContext
+  ): Solution {
+    return this.solutionService.compute(computeInput)
+  }
 
   @UseRoles({
     resource: AuthorizationResources.SOLUTION,

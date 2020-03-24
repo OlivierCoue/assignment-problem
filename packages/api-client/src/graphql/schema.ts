@@ -27,6 +27,7 @@ export enum LanguageCode {
 export type Mutation = {
    __typename?: 'Mutation',
   Mock_createMock?: Maybe<Scalars['Boolean']>,
+  Solution_compute: Solution,
   Solution_createOne: Solution,
   Solution_updateOne: Solution,
   Solution_deleteOne: Scalars['Boolean'],
@@ -52,6 +53,11 @@ export type Mutation = {
   ProjectAssignment_createOne: ProjectAssignment,
   ProjectAssignment_updateOne: ProjectAssignment,
   ProjectAssignment_deleteOne: Scalars['Boolean'],
+};
+
+
+export type MutationSolution_ComputeArgs = {
+  computeinput: SolutionComputeInput
 };
 
 
@@ -207,7 +213,6 @@ export enum PermissionNames {
   UserReadOwn = 'USER_READ_OWN',
   UserUpdateOwn = 'USER_UPDATE_OWN',
   UserDeleteOwn = 'USER_DELETE_OWN',
-  Default = 'DEFAULT',
   RoleCreateAny = 'ROLE_CREATE_ANY',
   RoleReadAny = 'ROLE_READ_ANY',
   RoleUpdateAny = 'ROLE_UPDATE_ANY',
@@ -216,6 +221,7 @@ export enum PermissionNames {
   RoleReadOwn = 'ROLE_READ_OWN',
   RoleUpdateOwn = 'ROLE_UPDATE_OWN',
   RoleDeleteOwn = 'ROLE_DELETE_OWN',
+  Default = 'DEFAULT',
   ProjectAssignmentCreateAny = 'PROJECT_ASSIGNMENT_CREATE_ANY',
   ProjectAssignmentReadAny = 'PROJECT_ASSIGNMENT_READ_ANY',
   ProjectAssignmentUpdateAny = 'PROJECT_ASSIGNMENT_UPDATE_ANY',
@@ -395,15 +401,26 @@ export type RoleUpdateInput = {
 
 export type Solution = {
    __typename?: 'Solution',
-  uuid: Scalars['String'],
-  name: Scalars['String'],
+  uuid?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
   projectAssignment?: Maybe<Array<Maybe<ProjectAssignment>>>,
-  createdAt: Scalars['Date'],
-  updatedAt: Scalars['Date'],
+  createdAt?: Maybe<Scalars['Date']>,
+  updatedAt?: Maybe<Scalars['Date']>,
+};
+
+export type SolutionComputeInput = {
+  csvData: Array<Maybe<SolutionCsvDataInput>>,
 };
 
 export type SolutionCreateInput = {
   name: Scalars['String'],
+};
+
+export type SolutionCsvDataInput = {
+  studentEmail: Scalars['String'],
+  project: Scalars['String'],
+  score: Scalars['Int'],
+  teacherEmail: Scalars['String'],
 };
 
 export type SolutionDeleteInput = {

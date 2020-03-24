@@ -2,9 +2,15 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindManyOptions, FindOneOptions, QueryRunner, Repository } from 'typeorm'
 
-import { SolutionCreateInput, SolutionDeleteInput, SolutionUpdateInput } from '../../graphql/schema'
+import {
+  Solution,
+  SolutionComputeInput,
+  SolutionCreateInput,
+  SolutionDeleteInput,
+  SolutionUpdateInput,
+} from '../../graphql/schema'
 import { CustomException } from '../../exceptions/custom-exception/exception'
-import { SolutionEntity } from '../../entities'
+import { ProjectAssignmentEntity, SolutionEntity } from '../../entities'
 import { ITypeOrmService } from '../../common/interfaces/typeorm-service'
 import {
   getDefaultServiceOptions,
@@ -16,6 +22,19 @@ import {
 @Injectable()
 export class SolutionService implements ITypeOrmService<SolutionEntity> {
   constructor(@InjectRepository(SolutionEntity) private readonly solutionRepository: Repository<SolutionEntity>) {}
+
+  compute(computeInput: SolutionComputeInput): Solution {
+    const solution = new SolutionEntity()
+    solution.name = 'solution-0'
+    solution.projectAssignments = [
+      new ProjectAssignmentEntity({ studentOneEmail: 'stu-1', studentTwoEmail: 'stu-2', projectName: 'project-1' }),
+      new ProjectAssignmentEntity({ studentOneEmail: 'stu-3', studentTwoEmail: 'stu-4', projectName: 'project-2' }),
+      new ProjectAssignmentEntity({ studentOneEmail: 'stu-5', studentTwoEmail: 'stu-6', projectName: 'project-3' }),
+      new ProjectAssignmentEntity({ studentOneEmail: 'stu-7', studentTwoEmail: 'stu-8', projectName: 'project-4' }),
+    ]
+
+    return solution
+  }
 
   async create(
     createInput: SolutionCreateInput,

@@ -1,6 +1,7 @@
 scalar Date
 
 type Mutation {
+  Solution_compute(computeInput: SolutionComputeInput!): Solution!
   Solution_createOne(createInput: SolutionCreateInput!): Solution!
   Solution_updateOne(updateInput: SolutionUpdateInput!): Solution!
   Solution_deleteOne(deleteInput: SolutionDeleteInput!): Boolean!
@@ -12,11 +13,22 @@ type Query {
 }
 
 type Solution {
-  uuid: String!
-  name: String!
-  projectAssignment: [ProjectAssignment]
-  createdAt: Date!
-  updatedAt: Date!
+  uuid: String
+  name: String
+  projectAssignments: [ProjectAssignment]
+  createdAt: Date
+  updatedAt: Date
+}
+
+input SolutionComputeInput {
+  csvData: [SolutionCsvDataInput]!
+}
+
+input SolutionCsvDataInput {
+  studentEmail: String!
+  project: String!
+  score: Int!
+  teacherEmail: String!
 }
 
 input SolutionCreateInput {

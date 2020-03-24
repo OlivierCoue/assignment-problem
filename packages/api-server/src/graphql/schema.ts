@@ -26,6 +26,7 @@ export enum LanguageCode {
 
 export interface Mutation {
   Mock_createMock?: Maybe<Scalars['Boolean']>,
+  Solution_compute: Solution,
   Solution_createOne: Solution,
   Solution_updateOne: Solution,
   Solution_deleteOne: Scalars['Boolean'],
@@ -52,6 +53,11 @@ export interface Mutation {
   ProjectAssignment_updateOne: ProjectAssignment,
   ProjectAssignment_deleteOne: Scalars['Boolean'],
 }
+
+
+export type MutationSolution_computeArgs = {
+  computeInput: SolutionComputeInput
+};
 
 
 export type MutationSolution_createOneArgs = {
@@ -389,15 +395,26 @@ export interface RoleUpdateInput {
 }
 
 export interface Solution {
-  uuid: Scalars['String'],
-  name: Scalars['String'],
-  projectAssignment?: Maybe<Array<Maybe<ProjectAssignment>>>,
-  createdAt: Scalars['Date'],
-  updatedAt: Scalars['Date'],
+  uuid?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  projectAssignments?: Maybe<Array<Maybe<ProjectAssignment>>>,
+  createdAt?: Maybe<Scalars['Date']>,
+  updatedAt?: Maybe<Scalars['Date']>,
+}
+
+export interface SolutionComputeInput {
+  csvData: Array<Maybe<SolutionCsvDataInput>>,
 }
 
 export interface SolutionCreateInput {
   name: Scalars['String'],
+}
+
+export interface SolutionCsvDataInput {
+  studentEmail: Scalars['String'],
+  project: Scalars['String'],
+  score: Scalars['Int'],
+  teacherEmail: Scalars['String'],
 }
 
 export interface SolutionDeleteInput {
