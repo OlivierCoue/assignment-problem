@@ -3,9 +3,9 @@ scalar Date
 type ProjectAssignment {
   uuid: String
   solution: Solution
-  projectName: String
-  studentOneEmail: String
-  studentTwoEmail: String
+  projectName: String!
+  studentOneEmail: String!
+  studentTwoEmail: String!
   createdAt: Date
   updatedAt: Date
 }

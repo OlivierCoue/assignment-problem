@@ -207,9 +207,9 @@ export enum PermissionNames {
 export interface ProjectAssignment {
   uuid?: Maybe<Scalars['String']>,
   solution?: Maybe<Solution>,
-  projectName?: Maybe<Scalars['String']>,
-  studentOneEmail?: Maybe<Scalars['String']>,
-  studentTwoEmail?: Maybe<Scalars['String']>,
+  projectName: Scalars['String'],
+  studentOneEmail: Scalars['String'],
+  studentTwoEmail: Scalars['String'],
   createdAt?: Maybe<Scalars['Date']>,
   updatedAt?: Maybe<Scalars['Date']>,
 }

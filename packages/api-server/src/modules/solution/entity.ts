@@ -8,6 +8,6 @@ export class SolutionEntity extends CustomBaseEntity<SolutionEntity> {
   @Column()
   name: string
 
-  @OneToMany(() => ProjectAssignmentEntity, (projectAssignment) => projectAssignment.solution)
+  @OneToMany(() => ProjectAssignmentEntity, (projectAssignment) => projectAssignment.solution, { cascade: true, persistence: true })
   projectAssignments: ProjectAssignmentEntity[]
 }

@@ -25,7 +25,6 @@ export class SolutionDetails extends React.Component<TProps, IState> {
 
     return (
       <div>
-        <div>Solution : {solution.name}</div>
         <ul>
           {solution.projectAssignments &&
             solution.projectAssignments.map(

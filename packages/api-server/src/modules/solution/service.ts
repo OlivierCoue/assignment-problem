@@ -49,7 +49,7 @@ export class SolutionService implements ITypeOrmService<SolutionEntity> {
 
     const drySolutionRecord = new SolutionEntity({ name })
     drySolutionRecord.projectAssignments = projectAssignments.map(
-      (projectAssignment) => new ProjectAssignmentEntity({ ...projectAssignment })
+      (projectAssignment) => new ProjectAssignmentEntity({ ...projectAssignment, solution: drySolutionRecord })
     )
 
     const { id } = await solutionRepository.save(drySolutionRecord)
