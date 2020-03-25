@@ -49,9 +49,6 @@ export interface Mutation {
   Role_updateMany: Array<Maybe<Role>>,
   Role_deleteOne: Scalars['Boolean'],
   Role_deleteMany: Array<Maybe<Scalars['Boolean']>>,
-  ProjectAssignment_createOne: ProjectAssignment,
-  ProjectAssignment_updateOne: ProjectAssignment,
-  ProjectAssignment_deleteOne: Scalars['Boolean'],
 }
 
 
@@ -169,21 +166,6 @@ export type MutationRole_deleteManyArgs = {
   deleteInputs: Array<Maybe<RoleDeleteInput>>
 };
 
-
-export type MutationProjectAssignment_createOneArgs = {
-  createInput: ProjectAssignmentCreateInput
-};
-
-
-export type MutationProjectAssignment_updateOneArgs = {
-  updateInput: ProjectAssignmentUpdateInput
-};
-
-
-export type MutationProjectAssignment_deleteOneArgs = {
-  deleteInput: ProjectAssignmentDeleteInput
-};
-
 export enum OrderByEnum {
   ASC = 'ASC',
   DESC = 'DESC'
@@ -219,15 +201,7 @@ export enum PermissionNames {
   ROLE_CREATE_OWN = 'ROLE_CREATE_OWN',
   ROLE_READ_OWN = 'ROLE_READ_OWN',
   ROLE_UPDATE_OWN = 'ROLE_UPDATE_OWN',
-  ROLE_DELETE_OWN = 'ROLE_DELETE_OWN',
-  PROJECT_ASSIGNMENT_CREATE_ANY = 'PROJECT_ASSIGNMENT_CREATE_ANY',
-  PROJECT_ASSIGNMENT_READ_ANY = 'PROJECT_ASSIGNMENT_READ_ANY',
-  PROJECT_ASSIGNMENT_UPDATE_ANY = 'PROJECT_ASSIGNMENT_UPDATE_ANY',
-  PROJECT_ASSIGNMENT_DELETE_ANY = 'PROJECT_ASSIGNMENT_DELETE_ANY',
-  PROJECT_ASSIGNMENT_CREATE_OWN = 'PROJECT_ASSIGNMENT_CREATE_OWN',
-  PROJECT_ASSIGNMENT_READ_OWN = 'PROJECT_ASSIGNMENT_READ_OWN',
-  PROJECT_ASSIGNMENT_UPDATE_OWN = 'PROJECT_ASSIGNMENT_UPDATE_OWN',
-  PROJECT_ASSIGNMENT_DELETE_OWN = 'PROJECT_ASSIGNMENT_DELETE_OWN'
+  ROLE_DELETE_OWN = 'ROLE_DELETE_OWN'
 }
 
 export interface ProjectAssignment {
@@ -241,39 +215,9 @@ export interface ProjectAssignment {
 }
 
 export interface ProjectAssignmentCreateInput {
-  solutionUuid: Scalars['String'],
   projectName: Scalars['String'],
   studentOneEmail: Scalars['String'],
   studentTwoEmail: Scalars['String'],
-}
-
-export interface ProjectAssignmentDeleteInput {
-  uuid: Scalars['String'],
-}
-
-export interface ProjectAssignmentFindManyInput {
-  skip?: Maybe<Scalars['Int']>,
-  take?: Maybe<Scalars['Int']>,
-  order?: Maybe<ProjectAssignmentOrderByInput>,
-  where?: Maybe<ProjectAssignmentSearchFieldsInput>,
-}
-
-export interface ProjectAssignmentFindOneInput {
-  where?: Maybe<ProjectAssignmentSearchFieldsInput>,
-}
-
-export interface ProjectAssignmentOrderByInput {
-  name?: Maybe<OrderByEnum>,
-}
-
-export interface ProjectAssignmentSearchFieldsInput {
-  uuid?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-}
-
-export interface ProjectAssignmentUpdateInput {
-  uuid: Scalars['String'],
-  solutionUuid?: Maybe<Scalars['String']>,
 }
 
 export interface Query {
@@ -287,8 +231,6 @@ export interface Query {
   User_getResetPasswordTokenData?: Maybe<Scalars['String']>,
   Role_findOne?: Maybe<Role>,
   Role_findMany: Array<Maybe<Role>>,
-  ProjectAssignment_findOne?: Maybe<ProjectAssignment>,
-  ProjectAssignment_findMany: Array<Maybe<ProjectAssignment>>,
 }
 
 
@@ -334,16 +276,6 @@ export type QueryRole_findOneArgs = {
 
 export type QueryRole_findManyArgs = {
   findManyInput: RoleFindManyInput
-};
-
-
-export type QueryProjectAssignment_findOneArgs = {
-  findOneInput: ProjectAssignmentFindOneInput
-};
-
-
-export type QueryProjectAssignment_findManyArgs = {
-  findManyInput: ProjectAssignmentFindManyInput
 };
 
 export interface Role {
@@ -408,6 +340,7 @@ export interface SolutionComputeInput {
 
 export interface SolutionCreateInput {
   name: Scalars['String'],
+  projectAssignments: Array<Maybe<ProjectAssignmentCreateInput>>,
 }
 
 export interface SolutionCsvDataInput {

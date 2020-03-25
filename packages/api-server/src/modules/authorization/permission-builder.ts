@@ -6,7 +6,6 @@ export enum AuthorizationResources {
   ROLE = 'ROLE',
   USER = 'USER',
   SOLUTION = 'SOLUTION',
-  PROJECT_ASSIGNMENT = 'PROJECT_ASSIGNMENT',
   PROJECT = 'PROJECT',
   STUDENT = 'STUDENT',
 }

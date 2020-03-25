@@ -40,7 +40,7 @@ export class SolutionService implements ITypeOrmService<SolutionEntity> {
     createInput: SolutionCreateInput,
     options: IServiceBaseOptions = getDefaultServiceOptions()
   ): Promise<SolutionEntity> {
-    const { name } = createInput
+    const { name, projectAssignments } = createInput
     const { relations, customQueryRunner } = options
 
     const solutionRepository = customQueryRunner
@@ -48,6 +48,10 @@ export class SolutionService implements ITypeOrmService<SolutionEntity> {
       : this.solutionRepository
 
     const drySolutionRecord = new SolutionEntity({ name })
+    drySolutionRecord.projectAssignments = projectAssignments.map(
+      (projectAssignment) => new ProjectAssignmentEntity({ ...projectAssignment })
+    )
+
     const { id } = await solutionRepository.save(drySolutionRecord)
 
     return this.findOneOrFail({ where: { id }, relations }, customQueryRunner)

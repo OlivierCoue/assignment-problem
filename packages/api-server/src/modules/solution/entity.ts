@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm'
 import { CustomBaseEntity } from '@mysg/nest-common'
+
 import { ProjectAssignmentEntity } from '../../entities'
 
 @Entity('solution')

@@ -7,6 +7,7 @@ export const FRAGMENT_Solution_allFields: DocumentNode;
 export const QUERY_Solution_findMany: DocumentNode;
 export const QUERY_Solution_findOne: DocumentNode;
 export const MUTATION_Solution_compute: DocumentNode;
+export const MUTATION_Solution_createOne: DocumentNode;
 export const FRAGMENT_User_fields: DocumentNode;
 export const QUERY_User_findMany: DocumentNode;
 export const QUERY_User_getCurrent: DocumentNode;

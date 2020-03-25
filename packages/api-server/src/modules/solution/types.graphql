@@ -33,6 +33,7 @@ input SolutionCsvDataInput {
 
 input SolutionCreateInput {
   name: String!
+  projectAssignments: [ProjectAssignmentCreateInput]!
 }
 
 input SolutionUpdateInput {

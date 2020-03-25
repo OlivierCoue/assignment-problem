@@ -11,10 +11,18 @@ import {
   SolutionComputeInput,
   Mutation_Solution_ComputeMutation,
   Mutation_Solution_ComputeMutationVariables,
+  SolutionCreateInput,
+  Mutation_Solution_CreateOneMutation,
+  Mutation_Solution_CreateOneMutationVariables,
 } from '../../internal'
 import { CustomClientError } from '../../util/error'
 
-import { QUERY_Solution_findMany, QUERY_Solution_findOne, MUTATION_Solution_compute } from './requests.graphql'
+import {
+  QUERY_Solution_findMany,
+  QUERY_Solution_findOne,
+  MUTATION_Solution_compute,
+  MUTATION_Solution_createOne,
+} from './requests.graphql'
 
 export class SolutionService {
   static async findMany(input: SolutionFindManyInput): Promise<Fragment_Solution_FieldsFragment[]> {
@@ -68,7 +76,28 @@ export class SolutionService {
       data: { Solution_compute: solution },
     } = result
 
-    if (solution === undefined) throw new Error('[Solution][findOne] failed')
+    if (solution === undefined) throw new Error('[Solution][compute] failed')
+
+    return solution
+  }
+
+  static async createOne(input: SolutionCreateInput): Promise<Fragment_Solution_AllFieldsFragment> {
+    const result = await GraphQLClient.mutate<
+      Mutation_Solution_CreateOneMutation,
+      Mutation_Solution_CreateOneMutationVariables
+    >({
+      mutation: MUTATION_Solution_createOne,
+      variables: { input },
+    })
+
+    if (result.errors) throw new CustomClientError(result.errors)
+
+    const {
+      // @ts-ignore
+      data: { Solution_createOne: solution },
+    } = result
+
+    if (solution === undefined) throw new Error('[Solution][createOne] failed')
 
     return solution
   }

@@ -31,3 +31,9 @@ mutation MUTATION_Solution_compute($input: SolutionComputeInput!) {
     ...FRAGMENT_Solution_allFields
   }
 }
+
+mutation MUTATION_Solution_createOne($input: SolutionCreateInput!) {
+  Solution_createOne(createInput: $input) {
+    ...FRAGMENT_Solution_allFields
+  }
+}

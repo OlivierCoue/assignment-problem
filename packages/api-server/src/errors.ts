@@ -2,7 +2,6 @@ import { authError } from './modules/auth/error'
 import { permissionError } from './modules/authorization/permission/error'
 import { userError } from './modules/user/error'
 import { solutionError } from './modules/solution/error'
-import { projectAssignmentError } from './modules/solution/project-assignment/error'
 
 export interface IErrorData {
   message?: string
@@ -19,7 +18,6 @@ export const errors = Object.assign(
   userError,
   permissionError,
   solutionError,
-  projectAssignmentError
 )
 
 export function findErrorData(name: keyof typeof errors): IErrorData {

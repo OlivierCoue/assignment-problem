@@ -50,9 +50,6 @@ export type Mutation = {
   Role_updateMany: Array<Maybe<Role>>,
   Role_deleteOne: Scalars['Boolean'],
   Role_deleteMany: Array<Maybe<Scalars['Boolean']>>,
-  ProjectAssignment_createOne: ProjectAssignment,
-  ProjectAssignment_updateOne: ProjectAssignment,
-  ProjectAssignment_deleteOne: Scalars['Boolean'],
 };
 
 
@@ -170,21 +167,6 @@ export type MutationRole_DeleteManyArgs = {
   deleteInputs: Array<Maybe<RoleDeleteInput>>
 };
 
-
-export type MutationProjectAssignment_CreateOneArgs = {
-  createInput: ProjectAssignmentCreateInput
-};
-
-
-export type MutationProjectAssignment_UpdateOneArgs = {
-  updateInput: ProjectAssignmentUpdateInput
-};
-
-
-export type MutationProjectAssignment_DeleteOneArgs = {
-  deleteInput: ProjectAssignmentDeleteInput
-};
-
 export enum OrderByEnum {
   Asc = 'ASC',
   Desc = 'DESC'
@@ -221,15 +203,7 @@ export enum PermissionNames {
   RoleCreateOwn = 'ROLE_CREATE_OWN',
   RoleReadOwn = 'ROLE_READ_OWN',
   RoleUpdateOwn = 'ROLE_UPDATE_OWN',
-  RoleDeleteOwn = 'ROLE_DELETE_OWN',
-  ProjectAssignmentCreateAny = 'PROJECT_ASSIGNMENT_CREATE_ANY',
-  ProjectAssignmentReadAny = 'PROJECT_ASSIGNMENT_READ_ANY',
-  ProjectAssignmentUpdateAny = 'PROJECT_ASSIGNMENT_UPDATE_ANY',
-  ProjectAssignmentDeleteAny = 'PROJECT_ASSIGNMENT_DELETE_ANY',
-  ProjectAssignmentCreateOwn = 'PROJECT_ASSIGNMENT_CREATE_OWN',
-  ProjectAssignmentReadOwn = 'PROJECT_ASSIGNMENT_READ_OWN',
-  ProjectAssignmentUpdateOwn = 'PROJECT_ASSIGNMENT_UPDATE_OWN',
-  ProjectAssignmentDeleteOwn = 'PROJECT_ASSIGNMENT_DELETE_OWN'
+  RoleDeleteOwn = 'ROLE_DELETE_OWN'
 }
 
 export type ProjectAssignment = {
@@ -244,39 +218,9 @@ export type ProjectAssignment = {
 };
 
 export type ProjectAssignmentCreateInput = {
-  solutionUuid: Scalars['String'],
   projectName: Scalars['String'],
   studentOneEmail: Scalars['String'],
   studentTwoEmail: Scalars['String'],
-};
-
-export type ProjectAssignmentDeleteInput = {
-  uuid: Scalars['String'],
-};
-
-export type ProjectAssignmentFindManyInput = {
-  skip?: Maybe<Scalars['Int']>,
-  take?: Maybe<Scalars['Int']>,
-  order?: Maybe<ProjectAssignmentOrderByInput>,
-  where?: Maybe<ProjectAssignmentSearchFieldsInput>,
-};
-
-export type ProjectAssignmentFindOneInput = {
-  where?: Maybe<ProjectAssignmentSearchFieldsInput>,
-};
-
-export type ProjectAssignmentOrderByInput = {
-  name?: Maybe<OrderByEnum>,
-};
-
-export type ProjectAssignmentSearchFieldsInput = {
-  uuid?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-};
-
-export type ProjectAssignmentUpdateInput = {
-  uuid: Scalars['String'],
-  solutionUuid?: Maybe<Scalars['String']>,
 };
 
 export type Query = {
@@ -291,8 +235,6 @@ export type Query = {
   User_getResetPasswordTokenData?: Maybe<Scalars['String']>,
   Role_findOne?: Maybe<Role>,
   Role_findMany: Array<Maybe<Role>>,
-  ProjectAssignment_findOne?: Maybe<ProjectAssignment>,
-  ProjectAssignment_findMany: Array<Maybe<ProjectAssignment>>,
 };
 
 
@@ -338,16 +280,6 @@ export type QueryRole_FindOneArgs = {
 
 export type QueryRole_FindManyArgs = {
   findManyInput: RoleFindManyInput
-};
-
-
-export type QueryProjectAssignment_FindOneArgs = {
-  findOneInput: ProjectAssignmentFindOneInput
-};
-
-
-export type QueryProjectAssignment_FindManyArgs = {
-  findManyInput: ProjectAssignmentFindManyInput
 };
 
 export type Role = {
@@ -414,6 +346,7 @@ export type SolutionComputeInput = {
 
 export type SolutionCreateInput = {
   name: Scalars['String'],
+  projectAssignments: Array<Maybe<ProjectAssignmentCreateInput>>,
 };
 
 export type SolutionCsvDataInput = {
@@ -597,6 +530,18 @@ export type Mutation_Solution_ComputeMutationVariables = {
 export type Mutation_Solution_ComputeMutation = (
   { __typename?: 'Mutation' }
   & { Solution_compute: { __typename?: 'Solution' }
+    & Fragment_Solution_AllFieldsFragment
+   }
+);
+
+export type Mutation_Solution_CreateOneMutationVariables = {
+  input: SolutionCreateInput
+};
+
+
+export type Mutation_Solution_CreateOneMutation = (
+  { __typename?: 'Mutation' }
+  & { Solution_createOne: { __typename?: 'Solution' }
     & Fragment_Solution_AllFieldsFragment
    }
 );

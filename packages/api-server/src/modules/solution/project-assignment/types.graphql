@@ -1,16 +1,5 @@
 scalar Date
 
-type Mutation {
-  ProjectAssignment_createOne(createInput: ProjectAssignmentCreateInput!): ProjectAssignment!
-  ProjectAssignment_updateOne(updateInput: ProjectAssignmentUpdateInput!): ProjectAssignment!
-  ProjectAssignment_deleteOne(deleteInput: ProjectAssignmentDeleteInput!): Boolean!
-}
-
-type Query {
-  ProjectAssignment_findOne(findOneInput: ProjectAssignmentFindOneInput!): ProjectAssignment
-  ProjectAssignment_findMany(findManyInput: ProjectAssignmentFindManyInput!): [ProjectAssignment]!
-}
-
 type ProjectAssignment {
   uuid: String
   solution: Solution
@@ -22,48 +11,7 @@ type ProjectAssignment {
 }
 
 input ProjectAssignmentCreateInput {
-  solutionUuid: String!
   projectName: String!
   studentOneEmail: String!
   studentTwoEmail: String!
-}
-
-input ProjectAssignmentUpdateInput {
-  uuid: String!
-  solutionUuid: String
-}
-
-input ProjectAssignmentFindOneInput {
-  where: ProjectAssignmentSearchFieldsInput
-}
-
-input ProjectAssignmentFindManyInput {
-  skip: Int
-  take: Int
-  order: ProjectAssignmentOrderByInput
-  where: ProjectAssignmentSearchFieldsInput
-}
-
-input ProjectAssignmentOrderByInput {
-  name: OrderByEnum
-}
-
-input ProjectAssignmentSearchFieldsInput {
-  uuid: String
-  name: String
-}
-
-input ProjectAssignmentDeleteInput {
-  uuid: String!
-}
-
-extend enum PermissionNames {
-  PROJECT_ASSIGNMENT_CREATE_ANY
-  PROJECT_ASSIGNMENT_READ_ANY
-  PROJECT_ASSIGNMENT_UPDATE_ANY
-  PROJECT_ASSIGNMENT_DELETE_ANY
-  PROJECT_ASSIGNMENT_CREATE_OWN
-  PROJECT_ASSIGNMENT_READ_OWN
-  PROJECT_ASSIGNMENT_UPDATE_OWN
-  PROJECT_ASSIGNMENT_DELETE_OWN
 }
