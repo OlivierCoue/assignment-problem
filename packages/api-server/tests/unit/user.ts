@@ -2,48 +2,48 @@ import { testContext, testServices } from './test-context'
 
 describe('User', () => {
   it(`user - create - success`, async () => {
-    testContext.seller0 = await testServices.userService.create({
-      email: 'seller0@test.com',
-      firstName: 'seller0-fn',
-      lastName: 'seller0-ln',
-      roleName: 'seller',
+    testContext.user0 = await testServices.userService.create({
+      email: 'user0@test.com',
+      firstName: 'user0-fn',
+      lastName: 'user0-ln',
+      roleName: 'admin',
       password: 'test',
     })
-    testContext.seller1 = await testServices.userService.create({
-      email: 'seller1@test.com',
-      firstName: 'seller1-fn',
-      lastName: 'seller1-ln',
-      roleName: 'seller',
+    testContext.user1 = await testServices.userService.create({
+      email: 'user1@test.com',
+      firstName: 'user1-fn',
+      lastName: 'user1-ln',
+      roleName: 'admin',
       password: 'test',
     })
-    testContext.seller2 = await testServices.userService.create({
-      email: 'seller2@test.com',
-      firstName: 'seller2-fn',
-      lastName: 'seller2-ln',
-      roleName: 'seller',
+    testContext.user2 = await testServices.userService.create({
+      email: 'user2@test.com',
+      firstName: 'user2-fn',
+      lastName: 'user2-ln',
+      roleName: 'admin',
       password: 'test',
     })
 
-    expect(testContext.seller0).toBeTruthy()
-    expect(testContext.seller0.id).toBeTruthy()
-    expect(testContext.seller0.uuid).toBeTruthy()
-    expect(testContext.seller0.email).toEqual('seller0@test.com')
+    expect(testContext.user0).toBeTruthy()
+    expect(testContext.user0.id).toBeTruthy()
+    expect(testContext.user0.uuid).toBeTruthy()
+    expect(testContext.user0.email).toEqual('user0@test.com')
 
-    expect(testContext.seller1).toBeTruthy()
-    expect(testContext.seller1.id).toBeTruthy()
-    expect(testContext.seller1.uuid).toBeTruthy()
-    expect(testContext.seller1.email).toEqual('seller1@test.com')
+    expect(testContext.user1).toBeTruthy()
+    expect(testContext.user1.id).toBeTruthy()
+    expect(testContext.user1.uuid).toBeTruthy()
+    expect(testContext.user1.email).toEqual('user1@test.com')
   })
 
   it(`user - findOne - success`, async () => {
-    const seller0 = await testServices.userService.findOne({ where: { email: 'seller0@test.com' } })
-    const seller1 = await testServices.userService.findOne({ where: { email: 'seller1@test.com' } })
+    const seller0 = await testServices.userService.findOne({ where: { email: 'user0@test.com' } })
+    const seller1 = await testServices.userService.findOne({ where: { email: 'user1@test.com' } })
 
     expect(seller0).toBeTruthy()
-    if (seller0) expect(seller0.email).toEqual('seller0@test.com')
+    if (seller0) expect(seller0.email).toEqual('user0@test.com')
 
     expect(seller1).toBeTruthy()
-    if (seller1) expect(seller1.email).toEqual('seller1@test.com')
+    if (seller1) expect(seller1.email).toEqual('user1@test.com')
   })
 
   it(`user - findMany - success`, async () => {
@@ -54,24 +54,24 @@ describe('User', () => {
   })
 
   it(`user - update - success`, async () => {
-    if (!testContext.seller0 || !testContext.seller1) return
-    await testServices.userService.update({ uuid: testContext.seller0.uuid, email: 'seller0.updated@test.com' })
-    await testServices.userService.update({ uuid: testContext.seller1.uuid, email: 'seller1.updated@test.com' })
+    if (!testContext.user0 || !testContext.user1) return
+    await testServices.userService.update({ uuid: testContext.user0.uuid, email: 'user0.updated@test.com' })
+    await testServices.userService.update({ uuid: testContext.user1.uuid, email: 'user1.updated@test.com' })
 
-    const seller0 = await testServices.userService.findOne({ where: { uuid: testContext.seller0.uuid } })
-    const seller1 = await testServices.userService.findOne({ where: { uuid: testContext.seller1.uuid } })
+    const seller0 = await testServices.userService.findOne({ where: { uuid: testContext.user0.uuid } })
+    const seller1 = await testServices.userService.findOne({ where: { uuid: testContext.user1.uuid } })
 
     expect(seller0).toBeTruthy()
-    if (seller0) expect(seller0.email).toEqual('seller0.updated@test.com')
+    if (seller0) expect(seller0.email).toEqual('user0.updated@test.com')
 
     expect(seller1).toBeTruthy()
-    if (seller1) expect(seller1.email).toEqual('seller1.updated@test.com')
+    if (seller1) expect(seller1.email).toEqual('user1.updated@test.com')
   })
 
   it(`user - delete - success`, async () => {
-    if (!testContext.seller2) return
-    await testServices.userService.delete({ uuid: testContext.seller2.uuid })
-    const seller2 = await testServices.userService.findOne({ where: { uuid: testContext.seller2.uuid } })
+    if (!testContext.user2) return
+    await testServices.userService.delete({ uuid: testContext.user2.uuid })
+    const seller2 = await testServices.userService.findOne({ where: { uuid: testContext.user2.uuid } })
     expect(seller2).toBeFalsy()
   })
 })

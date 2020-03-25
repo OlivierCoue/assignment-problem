@@ -179,7 +179,7 @@ export class Home extends React.Component<TProps, IState> {
                 {teacherEmails.map((teacherEmail) => (
                   <li key={teacherEmail}>
                     <div>{teacherEmail} : </div>
-                    <TextField id="standard-number" label="Number" type="number" value={1} />
+                    <TextField id="standard-number" label="Max" type="number" value={1} />
                   </li>
                 ))}
               </ul>

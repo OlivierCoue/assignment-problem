@@ -9,13 +9,13 @@ export interface ITestServices {
 export const testServices: ITestServices = {}
 
 export interface ITestDataContext {
-  seller0: UserEntity | undefined
-  seller1: UserEntity | undefined
-  seller2: UserEntity | undefined
+  user0: UserEntity | undefined
+  user1: UserEntity | undefined
+  user2: UserEntity | undefined
 }
 
 export const testContext: ITestDataContext = {
-  seller0: undefined,
-  seller1: undefined,
-  seller2: undefined,
+  user0: undefined,
+  user1: undefined,
+  user2: undefined,
 }
