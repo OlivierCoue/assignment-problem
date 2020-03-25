@@ -366,7 +366,7 @@ export interface SolutionFindOneInput {
 }
 
 export interface SolutionOrderByInput {
-  name?: Maybe<OrderByEnum>,
+  createdAt?: Maybe<OrderByEnum>,
 }
 
 export interface SolutionSearchFieldsInput {

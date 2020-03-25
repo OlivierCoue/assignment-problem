@@ -129,6 +129,16 @@ const routes: IRouteParams[] = [
     type: RouteType.PRIVATE,
   },
   {
+    Component: lazyWP(() => import('../pages/solution-list')),
+    path: RoutePath.SOLUTION_LIST,
+    type: RouteType.PRIVATE,
+  },
+  {
+    Component: lazyWP(() => import('../pages/solution-details-page')),
+    path: RoutePath.SOLUTION_DETAILS,
+    type: RouteType.PRIVATE,
+  },
+  {
     Component: lazyWP(() => import('../pages/login')),
     path: RoutePath.AUTH_LOGIN,
     type: RouteType.AUTH,

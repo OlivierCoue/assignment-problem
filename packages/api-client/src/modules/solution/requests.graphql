@@ -1,11 +1,13 @@
 fragment FRAGMENT_Solution_fields on Solution {
   uuid
   name
+  createdAt
 }
 
 fragment FRAGMENT_Solution_allFields on Solution {
   uuid
   name
+  createdAt
   projectAssignments {
     uuid
     projectName

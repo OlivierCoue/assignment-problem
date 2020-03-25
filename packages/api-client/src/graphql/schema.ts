@@ -372,7 +372,7 @@ export type SolutionFindOneInput = {
 };
 
 export type SolutionOrderByInput = {
-  name?: Maybe<OrderByEnum>,
+  createdAt?: Maybe<OrderByEnum>,
 };
 
 export type SolutionSearchFieldsInput = {
@@ -486,12 +486,12 @@ export type UserVerifyEmailInput = {
 };
 export type Fragment_Solution_FieldsFragment = (
   { __typename?: 'Solution' }
-  & Pick<Solution, 'uuid' | 'name'>
+  & Pick<Solution, 'uuid' | 'name' | 'createdAt'>
 );
 
 export type Fragment_Solution_AllFieldsFragment = (
   { __typename?: 'Solution' }
-  & Pick<Solution, 'uuid' | 'name'>
+  & Pick<Solution, 'uuid' | 'name' | 'createdAt'>
   & { projectAssignments: Maybe<Array<Maybe<(
     { __typename?: 'ProjectAssignment' }
     & Pick<ProjectAssignment, 'uuid' | 'projectName' | 'studentOneEmail' | 'studentTwoEmail'>
